@@ -1,0 +1,13 @@
+{% extends "main.html" %}
+
+{% block body %}
+    <div>
+        <form action="" method="POST" >
+            {% csrf_token %}
+            {{form.as_p}}{% comment %}
+                here as_p is used as a shorthacd to use p tag at the end of the every element of the form
+            {% endcomment %}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock body %}

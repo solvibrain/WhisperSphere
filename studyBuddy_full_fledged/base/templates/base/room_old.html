@@ -1,0 +1,74 @@
+{% extends "main.html" %}
+
+{% block title %}
+StudyBuddy|| Rooms
+{% endblock title %}
+
+{% block css %}
+<style>
+    #modified,#created{
+        display: inline-block;
+        margin: 5px;
+    }
+    .room-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+{% endblock css %}
+
+
+{% block body %}
+
+    
+
+<div class="room-container">
+    <div>   
+        <div> 
+            <h1>{{rooms.name}}</h1>
+            <p> {{rooms.description}}</p>
+            <span id="modified"> Modified:{{rooms.update}}</span>
+            <span id="created"> Created the room:{{rooms.created}}</span>
+        </div>
+        
+        <div class="comment-wraper">
+             <h3>Conversation</h3>
+                <hr>
+        {% for message in room_messages  %}
+            <div>
+                    {% if request.user == message.user %}
+                        <span><a href="{% url 'delete-message' message.id %}">Delete</a></span>
+                    {% endif %}
+                    <small><a href="{% url 'user-profile' message.user.id %}">@{{message.user}}</a> {{message.created|timesince}} ago</small>
+                    <p>{{message.body}}</p>
+            </div>
+        {% endfor %}
+        </div>
+{% if request.user.is_authenticated %}
+    <div class="comment_form">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Enter the message here" name="message_body" id="">
+        </form>
+
+        
+    
+    </div>
+
+    {% endif %}
+
+    </div>
+<!-- done  -->
+    <div>
+        <h2>Participants</h2>
+        <hr>
+        {% for user in participants  %}
+        <div>
+            <p><span><a href="{% url 'user-profile' user.id %}">@{{user.username}}</a></span></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+               
+{% endblock body %}
