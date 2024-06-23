@@ -97,7 +97,7 @@ def updateRoom(request,pk):
       topic,created =Topic.objects.get_or_create(name=topic_name)
       room.name=request.POST.get('name')
       room.description=request.POST.get('description')
-      room.topic = topic
+      room.topic = topic_name
       room.save()
 
       # form= RoomForm(request.POST,instance=room)
@@ -171,7 +171,7 @@ def loginPage(request):
    context={'page':page}
    return render(request,'base/login_page.html',context)
 
-# creating the view fundtion for the loging out the user
+# creating the view function for the loging out the user
 def logoutUser(request):
    logout(request)
    return redirect('index')
