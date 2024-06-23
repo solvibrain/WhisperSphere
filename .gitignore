@@ -1,4 +1,11 @@
+# files in Directory 
 .vscode
+.venv
+.env
+new_datadump.json/
+
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

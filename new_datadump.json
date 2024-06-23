@@ -1,0 +1,1374 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2023-04-08T09:59:50.812Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "let's learn Django",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2023-04-08T10:00:39.656Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Lets learn Python with the world's easiest",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2023-04-08T10:40:56.773Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "100 days of Coding Challenge",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2023-04-10T08:48:13.997Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "1",
+    "object_repr": "Understanding the concept of the Javascript",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2023-04-10T08:48:23.060Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "2",
+    "object_repr": "Python Doubt Solution",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2023-04-10T08:48:35.599Z",
+    "user": 1,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "Web Devlopment relatd doubt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2023-04-10T08:51:49.480Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "rupesh@TechFus",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2023-04-10T08:59:19.698Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "3",
+    "object_repr": "100 days of Coding Challenge",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Host\", \"Topic\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2023-04-10T08:59:34.555Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "2",
+    "object_repr": "Lets learn Python with the world's easiest",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Host\", \"Topic\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2023-04-10T08:59:46.762Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "let's learn Django",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Host\", \"Topic\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2023-04-12T05:56:36.969Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "4",
+    "object_repr": "Web Devlopment relatd doubt",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2023-04-12T08:33:47.042Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "rupesh@TechFus",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2023-04-12T09:29:14.809Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "1",
+    "object_repr": "Hey , I also wanted to join this group.",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2023-04-12T09:30:22.644Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "2",
+    "object_repr": "I realy did a great work for today and this is goi",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2023-04-12T09:39:58.062Z",
+    "user": 1,
+    "content_type": 9,
+    "object_id": "3",
+    "object_repr": "dfjaldjfladjfladjlfajdlfjadlfka;ld",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2023-04-13T05:16:34.988Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "5",
+    "object_repr": "let's learn Django",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Participants\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2023-04-14T06:10:20.007Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "rupesh_mishra11",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Username\", \"First name\", \"Last name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2023-04-14T06:10:56.584Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Robert",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2023-04-14T08:53:16.467Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Robert",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2023-04-14T08:55:24.320Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "4",
+    "object_repr": "grow",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2023-04-15T06:53:39.983Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Robert",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"First name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2023-04-15T06:55:55.185Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "Robert",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2023-04-15T07:00:28.646Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "robert",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Username\", \"Superuser status\"]}}]"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add user",
+    "content_type": 4,
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change user",
+    "content_type": 4,
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete user",
+    "content_type": 4,
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view user",
+    "content_type": 4,
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 5,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 5,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 5,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 5,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 6,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 6,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 6,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 6,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add room",
+    "content_type": 7,
+    "codename": "add_room"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change room",
+    "content_type": 7,
+    "codename": "change_room"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete room",
+    "content_type": 7,
+    "codename": "delete_room"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view room",
+    "content_type": 7,
+    "codename": "view_room"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add topic",
+    "content_type": 8,
+    "codename": "add_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change topic",
+    "content_type": 8,
+    "codename": "change_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete topic",
+    "content_type": 8,
+    "codename": "delete_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view topic",
+    "content_type": 8,
+    "codename": "view_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add message",
+    "content_type": 9,
+    "codename": "add_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change message",
+    "content_type": 9,
+    "codename": "change_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete message",
+    "content_type": 9,
+    "codename": "delete_message"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view message",
+    "content_type": 9,
+    "codename": "view_message"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$kB9Dxr8KDyflbOkpbdZspH$wyJ4JemrvA6yguaUMZC8iQrd0h2d4VfWOXX2LMTvoP8=",
+    "last_login": "2023-04-15T18:13:20.423Z",
+    "is_superuser": false,
+    "username": "robert",
+    "first_name": "",
+    "last_name": "",
+    "email": "Robert@techfus.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-08T07:38:30Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$Da1IL5EpL8qgf6ElMQs41e$LP+M+8xhpyYDXSG0mZCDFLC7Xb+/i3K6/jYgiiBu8fY=",
+    "last_login": "2023-04-12T08:34:39.429Z",
+    "is_superuser": false,
+    "username": "rupesh@TechFus",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-10T08:51:48Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$AEew47aWbv4aTT4zmWGedj$0ymbItVjTHjHCzhgPYC98VnZ7UUAKXccmvGTthLTuzM=",
+    "last_login": "2023-04-15T06:54:37.912Z",
+    "is_superuser": false,
+    "username": "rupesh_mishra11",
+    "first_name": "Rupesh",
+    "last_name": "Mishra",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-04-12T09:11:10Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$tDroyy2xfgEETSTpmRDIUE$vV47alGFVdA4yY+SGCI6/YjPx2ecAeN+/c5RhMhmBKQ=",
+    "last_login": "2023-04-14T08:57:10.542Z",
+    "is_superuser": false,
+    "username": "grow",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-04-13T05:33:43.395Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$veYOV22XmlDQJYA7QxxLtu$pvCmDjuqCEwn09ZgUNkF9pZN8fCf32DoboIeNckNle8=",
+    "last_login": "2023-04-15T07:04:57.605Z",
+    "is_superuser": true,
+    "username": "Rocky12",
+    "first_name": "",
+    "last_name": "",
+    "email": "rocky@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-15T07:04:01.753Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$Yz2ZJfJ7Sl8JF9S4LVPLrn$nXBisv54o5SXTdOkBzBxBTjrNNjjcEDZ7QZyDQQ+FCM=",
+    "last_login": "2023-04-15T07:51:32.816Z",
+    "is_superuser": false,
+    "username": "rocky_rupesh",
+    "first_name": "",
+    "last_name": "",
+    "email": "rocky_bhai@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-04-15T07:51:31.800Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$J7cPEuypPGe8eFbCvjOM5x$6BSkugrE/otxLbyWkdTRDhDPBJDqsXIYxMXZOJ2EhEQ=",
+    "last_login": "2023-04-15T18:04:27.176Z",
+    "is_superuser": false,
+    "username": "amit_rock",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-04-15T18:04:26.461Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$PQbw97Ml17B9QA9qqELHhE$Pu1IH6Vlxvi/t64JddkECYXx/8mNc+gFF2dhQ+9EpsE=",
+    "last_login": "2023-04-15T18:18:50.107Z",
+    "is_superuser": true,
+    "username": "Rrupesh",
+    "first_name": "",
+    "last_name": "",
+    "email": "Rrupesh@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-15T18:16:47.677Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$e3nCcKdseesQKfORjDFF4R$uwEShJ5Uc3GMEVSrd1lN+o29p98uyhbYn5Lkk0BbGFM=",
+    "last_login": "2023-04-17T08:01:34.098Z",
+    "is_superuser": false,
+    "username": "nikhil",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-04-17T08:01:33.352Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$390000$rtW8510SEXrd6C1iGTemFJ$xijLWaIlgcc8bSdJ13OGe5JU3E4fT0qcqSwulWvQkl4=",
+    "last_login": "2023-05-08T09:18:06.816Z",
+    "is_superuser": false,
+    "username": "rupeshmishra",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-05-08T09:18:04.383Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$720000$LuMt61d3WHISlRtUNF8x6L$23IIQ1MiwHqS04x3LhBONaqzxY+XbZJWOup4jDRGObo=",
+    "last_login": "2024-05-01T09:35:28.827Z",
+    "is_superuser": false,
+    "username": "rupeshmishra2002",
+    "first_name": "",
+    "last_name": "",
+    "email": "preetinishad2830@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-04-29T15:51:29.218Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "base",
+    "model": "room"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "base",
+    "model": "topic"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "base",
+    "model": "message"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ap3z2iizg6xsrclk90k1i5jwsai2part",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCGAgMu3fcMZCijVA0kpV0Z765NutDtf-_9l4i0rSVunZc4Z3EWIE6_W6LpwXUH-U711uTU6rrMSe6KPGiXY8v8vBzu30GhXr41e0xIxluVQwCnkzIYFAyE6HTw9qqdUobAecg6sdF2yN7C4IJBcInF-wOjpTX9:1pmUgZ:hn61407lZ3gAuf7wuARYYzDPZoQHuvHkepNG3xy11mc",
+    "expire_date": "2023-04-26T07:14:31.232Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "o3cahegv7aosr3gmllw7tbnpq6wxtw0t",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlna9W9FSc8ZLNvrxQEUS3FSIe4OkVJA-2bmvVRM29riNuoSJ1ZnBaBOv2NO5VHnnfA9zbeuS5_XZcp6V_RBh752rs_L4f4dtDTatw5CyVuxToA4g4GMGdALgpCzhXMygOgDI4kDU4nQChVLJGSYg3p_APxMN7I:1s26N4:eRqUn8PN17qLNJYrMaQ9H9HwJMU8zJFzU0R6UIhUHn4",
+    "expire_date": "2024-05-15T09:35:26.781Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "zi1tzd8sos86b1xc9dcq81ogsuff6r21",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-KA5LSc8ZrLe7NgmgRMqnirg7REoB7ZuZt5mMdenyOpcp92ouxpvT78aQZxl2oA8M99HKOCxTz3ZX7EFnexu1vK6H-3fQYe6-dcscESm2Zx-DEJOWRBrEQSkksAgc19CiQePgNBUOyr7WQgpIMu8P_hw5aQ:1pnZsU:xkYRRKqsfShbRG-5i1avVs-i6_3574ysftGgwfzNlP8",
+    "expire_date": "2023-04-29T06:59:18.451Z"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 1,
+  "fields": {
+    "name": "Understanding the concept of the Javascript"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 2,
+  "fields": {
+    "name": "Python Doubt Solution"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 3,
+  "fields": {
+    "name": "Web Devlopment relatd doubt"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 4,
+  "fields": {
+    "name": "Javascript Solution"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 5,
+  "fields": {
+    "name": "java"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 6,
+  "fields": {
+    "name": "C++"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 7,
+  "fields": {
+    "name": "Python "
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 8,
+  "fields": {
+    "name": "Django Web Devlopment"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 9,
+  "fields": {
+    "name": "SEO"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 10,
+  "fields": {
+    "name": "Earth Day"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 11,
+  "fields": {
+    "name": "Website Development Discussion"
+  }
+},
+{
+  "model": "base.topic",
+  "pk": 12,
+  "fields": {
+    "name": "Generative AI"
+  }
+},
+{
+  "model": "base.room",
+  "pk": 4,
+  "fields": {
+    "host": 1,
+    "topic": 2,
+    "name": "Web Devlopment relatd doubt",
+    "description": "jljdljglej4lklnfflgjsdflgjernlnrlgjlskdfjglsjltjreljljlgjdfflgjrglfjglsdjfglsererlgm;mglsjdflgsdlgmsldffglsgllsfnglnslfglsjffgl;sdjffglsdflgjsdflgjskgkdklflasjdlfemflosdjflasdjfljsadfljsdfnlddjfklasdjfasdfjfjelndfnlkassdjfasdljflasdjflasdjflsdsdjfljijflasdlfnasldjfluijrrlellddnflasdjfljsdlskdjfsd",
+    "update": "2023-04-12T05:56:36.962Z",
+    "created": "2023-04-11T05:59:59.692Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 5,
+  "fields": {
+    "host": 2,
+    "topic": 1,
+    "name": "let's learn Django",
+    "description": "Django is the very Poweful Backend Framework and it have a versatile use that it can use also in the web3 development.",
+    "update": "2023-04-13T05:16:34.977Z",
+    "created": "2023-04-11T06:00:59.784Z",
+    "participants": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 6,
+  "fields": {
+    "host": 1,
+    "topic": 2,
+    "name": "Great CRUD APPLICATION",
+    "description": "lorem Ipsum Lorem Ipsum Lorem Ipsuum",
+    "update": "2023-04-11T07:30:34.987Z",
+    "created": "2023-04-11T07:30:34.988Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 7,
+  "fields": {
+    "host": 2,
+    "topic": 3,
+    "name": "Fatafat Solution",
+    "description": "Solution as fast as possible",
+    "update": "2023-04-12T05:58:10.610Z",
+    "created": "2023-04-12T05:58:10.610Z",
+    "participants": [
+      3
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 8,
+  "fields": {
+    "host": 2,
+    "topic": 2,
+    "name": "Entertainment Room",
+    "description": "this room for refrshing the mood of the peers who did the lot of hard work and want to relax for some time .",
+    "update": "2023-04-12T06:06:44.162Z",
+    "created": "2023-04-12T06:06:44.162Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 9,
+  "fields": {
+    "host": 2,
+    "topic": 2,
+    "name": "Sprint Energy",
+    "description": "Sprint Energy",
+    "update": "2023-04-12T06:07:56.865Z",
+    "created": "2023-04-12T06:07:56.865Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 11,
+  "fields": {
+    "host": 4,
+    "topic": 2,
+    "name": "Gaming Challenge",
+    "description": "This is room for the Gamers who want to challange themselves",
+    "update": "2023-04-14T10:15:19.040Z",
+    "created": "2023-04-14T10:15:19.040Z",
+    "participants": [
+      4,
+      11
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 12,
+  "fields": {
+    "host": 4,
+    "topic": 5,
+    "name": "Calling all Developers",
+    "description": "fflajdflajljfajfja;nfkanljaljaljclasdvad",
+    "update": "2023-04-14T11:03:49.735Z",
+    "created": "2023-04-14T11:03:49.735Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 13,
+  "fields": {
+    "host": 4,
+    "topic": 6,
+    "name": "Discusion about the oops and the inheritance",
+    "description": "this room get the discussion forum from the all of the world developerr.",
+    "update": "2023-04-15T05:09:10.909Z",
+    "created": "2023-04-15T05:08:27.850Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 14,
+  "fields": {
+    "host": 4,
+    "topic": 7,
+    "name": "Django Web apps",
+    "description": "ljdfljaljflajflajflajfljaslfjaljflajsf",
+    "update": "2023-04-15T05:11:32.305Z",
+    "created": "2023-04-15T05:11:32.305Z",
+    "participants": [
+      7,
+      11
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 15,
+  "fields": {
+    "host": 6,
+    "topic": 8,
+    "name": "Creating the Projects",
+    "description": "We will collectively make the projects and will help each other.\r\n",
+    "update": "2023-04-15T07:52:23.270Z",
+    "created": "2023-04-15T07:52:23.270Z",
+    "participants": [
+      6
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 16,
+  "fields": {
+    "host": 7,
+    "topic": 9,
+    "name": "Information about the seo",
+    "description": "sdfadetertwrwetwertwertr",
+    "update": "2023-04-15T18:05:59.659Z",
+    "created": "2023-04-15T18:05:59.659Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 17,
+  "fields": {
+    "host": 9,
+    "topic": 10,
+    "name": "Climat Change",
+    "description": "This room is for the discussion on the topic Climate change",
+    "update": "2023-04-17T08:02:30.082Z",
+    "created": "2023-04-17T08:02:30.082Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.room",
+  "pk": 18,
+  "fields": {
+    "host": 10,
+    "topic": 11,
+    "name": "ChargeBot",
+    "description": "Here we all discuss about the bringing the update on our website.",
+    "update": "2023-05-08T09:19:40.491Z",
+    "created": "2023-05-08T09:19:40.491Z",
+    "participants": [
+      10
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 19,
+  "fields": {
+    "host": 11,
+    "topic": 12,
+    "name": "GenAI for Community",
+    "description": "In this Room , we discuss about the Generative AI Concepts , Share Latest Course on this and Help each other to grow together.\r\n",
+    "update": "2024-04-29T15:53:01.049Z",
+    "created": "2024-04-29T15:53:01.050Z",
+    "participants": [
+      11
+    ]
+  }
+},
+{
+  "model": "base.room",
+  "pk": 20,
+  "fields": {
+    "host": 11,
+    "topic": 6,
+    "name": "$$$$$$$$$$$$$$$",
+    "description": "ssfggdfgdfgdfgdfgdfgdfgdftdfgdfgdfgdfgg",
+    "update": "2024-05-01T09:36:49.905Z",
+    "created": "2024-05-01T09:36:49.905Z",
+    "participants": []
+  }
+},
+{
+  "model": "base.message",
+  "pk": 2,
+  "fields": {
+    "user": 3,
+    "room": 8,
+    "body": "I realy did a great work for today and this is going to give me better sleep and now I want to some enjoyment.",
+    "update": "2023-04-12T09:30:22.641Z",
+    "created": "2023-04-12T09:30:22.641Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 4,
+  "fields": {
+    "user": 1,
+    "room": 5,
+    "body": "Hello everybody",
+    "update": "2023-04-12T10:47:19.828Z",
+    "created": "2023-04-12T10:47:19.829Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 7,
+  "fields": {
+    "user": 3,
+    "room": 4,
+    "body": "Hi there I have some doubt related to the web Development",
+    "update": "2023-04-12T10:50:00.829Z",
+    "created": "2023-04-12T10:50:00.829Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 8,
+  "fields": {
+    "user": 3,
+    "room": 7,
+    "body": "Hi there I want the solution for the above problem",
+    "update": "2023-04-12T10:55:22.968Z",
+    "created": "2023-04-12T10:55:22.968Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 12,
+  "fields": {
+    "user": 4,
+    "room": 5,
+    "body": "Grow here",
+    "update": "2023-04-13T05:34:01.119Z",
+    "created": "2023-04-13T05:34:01.119Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 21,
+  "fields": {
+    "user": 3,
+    "room": 7,
+    "body": "Hi rupesh here",
+    "update": "2023-04-13T08:16:58.441Z",
+    "created": "2023-04-13T08:16:58.441Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 22,
+  "fields": {
+    "user": 4,
+    "room": 11,
+    "body": "Hi I want to be the member of the team",
+    "update": "2023-04-14T10:19:13.416Z",
+    "created": "2023-04-14T10:19:13.416Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 23,
+  "fields": {
+    "user": 6,
+    "room": 15,
+    "body": "Hello everyOne",
+    "update": "2023-04-15T07:52:36.575Z",
+    "created": "2023-04-15T07:52:36.575Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 24,
+  "fields": {
+    "user": 6,
+    "room": 5,
+    "body": "Hey there can anyone tell me about the model in django",
+    "update": "2023-04-15T18:01:30.208Z",
+    "created": "2023-04-15T18:01:30.208Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 25,
+  "fields": {
+    "user": 7,
+    "room": 14,
+    "body": "can anyone tell me about the django web apps",
+    "update": "2023-04-15T18:04:47.961Z",
+    "created": "2023-04-15T18:04:47.961Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 26,
+  "fields": {
+    "user": 10,
+    "room": 18,
+    "body": "Hello there I also contibute in your development",
+    "update": "2023-05-08T09:20:34.795Z",
+    "created": "2023-05-08T09:20:34.795Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 27,
+  "fields": {
+    "user": 11,
+    "room": 19,
+    "body": "Hi, there I want to know about the Transformer Architecture in Detail and specifically about he Multi headed attention block.",
+    "update": "2024-04-29T16:02:34.345Z",
+    "created": "2024-04-29T16:02:34.345Z"
+  }
+},
+{
+  "model": "base.message",
+  "pk": 29,
+  "fields": {
+    "user": 11,
+    "room": 11,
+    "body": "fhghgf",
+    "update": "2024-04-30T06:25:47.229Z",
+    "created": "2024-04-30T06:25:47.229Z"
+  }
+}
+]
