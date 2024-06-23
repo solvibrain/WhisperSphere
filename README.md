@@ -20,18 +20,13 @@ cd directory_name
 
 --> Create a virtual environment :
 ```bash
-# Let's install virtualenv first
-pip install virtualenv
-
-# Then we create our virtual environment
-virtualenv envname
-
+# Let's Create Virtual Environment First
+python -m venv your_choice_of_environment_name
 ```
 
 --> Activate the virtual environment :
 ```bash
 envname\scripts\activate
-
 ```
 
 --> Install the requirements :
@@ -41,6 +36,7 @@ pip install -r requirements.txt
 ```
 
 #
+### After moving to the root Directory where manage.py is available running the below command
 
 ### Running the App
 
