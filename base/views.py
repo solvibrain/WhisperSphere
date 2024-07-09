@@ -158,15 +158,21 @@ def loginPage(request):
 
       try:
          user=User.objects.get(username=username)
+         user=authenticate(request,username=username,password=password) 
+         if user is not None:
+            login(request,user)
+            return redirect('index')
+         else:
+            messages.error(request,"username and Password  Does not Exist")
       except:
          messages.error(request,'User does not exitst')   
-      user=authenticate(request,username=username,password=password)   
+      # user=authenticate(request,username=username,password=password)   
 
-      if user is not None:
-         login(request,user)
-         return redirect('index')
-      else:
-         messages.error(request,"username and Password  Does not Exist")
+      # if user is not None:
+      #    login(request,user)
+      #    return redirect('index')
+      # else:
+      #    messages.error(request,"username and Password  Does not Exist")
 
    context={'page':page}
    return render(request,'base/login_page.html',context)

@@ -12,7 +12,7 @@ class Topic(models.Model):
 
 
 class Room(models.Model):
-    host=models.ForeignKey(User, on_delete= models.SET_NULL,null=True) 
+    host=models.ForeignKey(User, on_delete= models.SET_NULL,null=True)  # on_delte is for that if parent get deleted then child will remain in the database.
     topic=models.ForeignKey('Topic', on_delete= models.SET_NULL, null=True) 
     # id= models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)+
     name=models.CharField(max_length=200)
