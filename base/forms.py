@@ -10,7 +10,7 @@ class RoomForm(ModelForm):
 
 
 
-class userForm(ModelForm):
+class UserForm(ModelForm):
     class Meta:
         model=User
         fields=['username','email']

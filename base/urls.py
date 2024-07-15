@@ -21,4 +21,9 @@ urlpatterns = [
     path('topicPage/',views.topicPage, name="topic-page"),
    
     path('back/',views.back,name='back'),
+
+    path('upvote-message/<str:pk>/', views.upvoteMessage, name="upvote-message"),
+    path('notifications/', views.notificationsPage, name="notifications"),
+    path('create-event/<str:room_pk>/', views.createEvent, name="create-event"),
+    path('join-event/<str:event_pk>/', views.joinEvent, name="join-event"),
 ]
