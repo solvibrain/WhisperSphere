@@ -1,7 +1,7 @@
 <div align="center">
 
 
-# DiscussPeer
+# WhisperShpere
 </div>
 
 ### Cloning the repository

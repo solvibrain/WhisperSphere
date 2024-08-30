@@ -1,6 +1,7 @@
 {% extends "main.html" %}
 
 {% block css %}
+
 <style>
 
     .profile-container{
@@ -12,7 +13,9 @@
 
 {% endblock css %}
 
-
+{% comment %}
+    This is showing the Dynaic nature of Template that we are reusing the Component.
+{% endcomment %}
 {% block body %}
     <p>{{user.username}}</p>
     <div class="profile-container">

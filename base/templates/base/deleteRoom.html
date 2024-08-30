@@ -19,6 +19,8 @@
                     </div>
                 </div>
                 <div class="layout__body">
+                    {% include "message.html" %}
+
                     <form class="form" action="" method="POST">
                         {% csrf_token %}
                         <div class="form__group">

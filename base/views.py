@@ -1,248 +1,298 @@
-from django.shortcuts import render,redirect
-from .models import Room,Topic,Message
-from django.http import HttpResponse
-from .forms import RoomForm
-from .forms import userForm
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout
-from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseForbidden
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q # this import is for using andd or in the searching mehtod
+from django.contrib import messages
+from django.db import transaction, IntegrityError
+from django.db.models import Q
+from django.core.paginator import Paginator
+from django.views.decorators.http import require_http_methods
+from django.utils.translation import gettext_lazy as _
 
-# rooms=[
-#         {"id":1, "name":"Pthon Web Development Course"},
-#         {"id":2,"name":"Django Course"},
-#         {"id":3,"name":"Developing PRoject"},
-#     ]
-# Create your views here.
+from .models import Room, Topic, Message, User
+from .forms import RoomForm, UserForm, MyUserCreationForm
+from .utils import validate_name
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+@require_http_methods(["GET"])
 def index(request):
-#    room=[
-#         {"id":1, "name":"Pthon Web Development Course"},
-#         {"id":2,"name":"Django Course"},
-#         {"id":3,"name":"Developing PRoject"},
-#     ]
-   q=request.GET.get('q') if request.GET.get('q') != None else ''
-   rooms= Room.objects.filter(Q(topic__name__icontains=q)|
-                              Q(name__icontains=q)|
-                              Q(description__icontains=q))
-   topics= Topic.objects.all()[0:5]
-   room_count=rooms.count()
-   room_messages=Message.objects.filter(Q(room__topic__name__icontains = q)|
-                                        Q(room__name__icontains = q))
-   context={'rooms':rooms,'topics':topics,'room_count': room_count,'room_messages':room_messages}
-   
-   return render(request,'base/index.html',context)
+    q = request.GET.get('q', '')
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) |
+        Q(name__icontains=q) |
+        Q(description__icontains=q)
+    ).select_related('topic', 'host').prefetch_related('participants')
+    
+    topics = Topic.objects.all()[:5]
+    room_count = rooms.count()
+    room_messages = Message.objects.filter(
+        Q(room__topic__name__icontains=q) |
+        Q(room__name__icontains=q) |
+        Q(body__icontains=q)
+    ).select_related('user', 'room')
 
+    paginator = Paginator(rooms, 10)  # Show 10 rooms per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-def room(request,pk):
-   room=None
-   room= Room.objects.get(id=pk)
-   room_messages=room.message_set.all()  # type: ignore #this code is used for the sepecificity of theindividuality
-   participants=room.participants.all()
-   if request.method =='POST':
-      message=Message.objects.create(
-         user=request.user,
-         room=room,
-         body=request.POST.get('message_body')
-      )
-      room.participants.add(request.user)
-      return redirect('room',pk=room.id) # type: ignore
+    context = {
+        'rooms': page_obj,
+        'topics': topics,
+        'room_count': room_count,
+        'room_messages': room_messages
+    }
+    return render(request, 'base/index.html', context)
 
-   
-   context={'rooms':room,'room_messages':room_messages,'participants':participants}
-   return render(request,'base/room.html', context)
+@require_http_methods(["GET", "POST"])
+def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('index')
 
+    if request.method == 'POST':
+        email = request.POST.get('email', '').lower()
+        password = request.POST.get('password', '')
 
+        try:
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                auth_backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user,backend= auth_backend)
+                return redirect('index')
+            else:
+                messages.error(request, _("Invalid email or password"))
+        except User.DoesNotExist:
+            messages.error(request, _("User does not exist"))
+        except Exception as e:
+            logger.error(f"Login error: {str(e)}")
+            messages.error(request, _("An error occurred. Please try again."))
 
-#Here Decorator is used for restriction of loging in and if not then allowing them to login
+    return render(request, 'base/login_page.html', {'page': 'login'})
+
 @login_required(login_url='login')
-def createRoom(request):
-   page='create'
-   form=RoomForm()
-   topics=Topic.objects.all()
-   if request.method =="POST":
-      topic_name=request.POST.get('topic')
-      topic,created =Topic.objects.get_or_create(name=topic_name)
-      Room.objects.create(
-         host=request.user,
-         topic=topic,
-         name=request.POST.get('name'),
-         description=request.POST.get('description')
-      )
-      return redirect('index')
-      # form= RoomForm(request.POST)
-      # #this code is for saving the data filled inthe form in the database.
-      # if form.is_valid():
-      #    room=form.save(commit=False)
-      #    room.host= request.user
-      #    room.save()
-   context={'form':form , 'topics':topics,'page':page}
-   return render(request,'base/create_room.html',context)   
+def logout_user(request):
+    logout(request)
+    return redirect('index')
 
+@require_http_methods(["GET", "POST"])
+def register_user(request):
+    form = MyUserCreationForm()
 
-#Here Decorator is used for restriction of loging in and if not then allowing them to login
+    if request.method == "POST":
+        form = MyUserCreationForm(request.POST)
+        if form.is_valid():
+            try:
+                with transaction.atomic():
+                    user = form.save(commit=False)
+                    user.username = user.username.lower()
+                    user.save()
+                    auth_backend = 'django.contrib.auth.backends.ModelBackend'
+                    login(request, user,backend= auth_backend)
+                return redirect('index')
+            except Exception as e:
+                logger.error(f"User registration error: {str(e)}")
+                messages.error(request, _("An error occurred during registration. Please try again."))
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
+
+    return render(request, 'base/login_page.html', {'form': form})
+
+@require_http_methods(["GET"])
+def user_profile(request, pk):
+    user = get_object_or_404(User, id=pk)
+    rooms = user.rooms.all()
+    room_messages = user.messages.all()
+    topics = Topic.objects.all()
+    context = {
+        'user': user,
+        'rooms': rooms,
+        'topics': topics,
+        'room_messages': room_messages
+    }
+    return render(request, 'base/userProfile.html', context)
+
 @login_required(login_url='login')
-def updateRoom(request,pk):
-   room=Room.objects.get(id=pk)
-   form=RoomForm(instance=room)
-   topics=Topic.objects.all()
-   context={'form':form, 'topics':topics, 'room':room}
-   # restriction code
-   if request.user != room.host:# This code is for restricting other user to update another room and this code can be used somewhere else
-      return HttpResponse("You are not allowed to do this because you are not the host of this room")
-   
-   if request.method =="POST":
-      topic_name=request.POST.get('topic')
-      topic,created =Topic.objects.get_or_create(name=topic_name)
-      room.name=request.POST.get('name')
-      room.description=request.POST.get('description')
-      room.topic = topic_name
-      room.save()
+@require_http_methods(["GET", "POST"])
+def update_user(request, pk):
+    # Get the user profile to be updated
+    profile_user = get_object_or_404(User, pk=pk)
+    
+    # Check if the logged-in user is the same as the profile user
+    if request.user.id != profile_user.id:
+        return HttpResponseForbidden("You don't have permission to update this profile.")
+    
+    form = UserForm(instance=profile_user)
+    
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=profile_user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=profile_user.id)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()}: {error}")
+    
+    return render(request, 'base/update-user.html', {'form': form})
+@require_http_methods(["GET", "POST"])
+def room(request, pk):
+    room = get_object_or_404(Room, id=pk)
+    room_messages = room.room_messages.all().select_related('user')
+    participants = room.participants.all()
 
-      # form= RoomForm(request.POST,instance=room)
-      # if form.is_valid():
-      #    form.save()
-      return redirect('index')
-   return render(request,'base/create_room.html',context)
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            Message.objects.create(
+                user=request.user,
+                room=room,
+                body=request.POST.get('message_body')
+            )
+            room.participants.add(request.user)
+            return redirect('room', pk=room.id)
+        else:
+            return redirect('login')
 
+    context = {
+        'room': room,
+        'room_messages': room_messages,
+        'participants': participants
+    }
+    return render(request, 'base/room.html', context)
 
-
-#Here Decorator is used for restriction of loging in and if not then allowing them to login
 @login_required(login_url='login')
-def deleteRoom(request,pk):
-   room=Room.objects.get(id=pk)
+@require_http_methods(["GET", "POST"])
+def create_room(request):
+    form = RoomForm()
+    topics = Topic.objects.all()
 
-   if request.user != room.host:# This code is for restricting other user to update another room and this code can be used somewhere else
-      return HttpResponse("You are not allowed to do this because you are not the host of this room")
-   
-   if request.method == "POST":
-      room.delete()
-      return redirect('index')
-   return render(request,'base/deleteRoom.html',{'obj':room})
+    if request.method == "POST":
+        topic_name = request.POST.get('topic')
+        room_name = request.POST.get('name')
 
+        is_valid, error_message = validate_name(topic_name)
+        if not is_valid:
+            messages.error(request, f"Invalid topic name: {error_message}")
+            return redirect('create-room')
 
+        is_valid, error_message = validate_name(room_name, check_profanity=False)
+        if not is_valid:
+            messages.error(request, f"Invalid room name: {error_message}")
+            return redirect('create-room')
 
-# This view is for the user giving him a permission to user to delete his own message
+        if Room.objects.filter(name=room_name).exists():
+            messages.error(request, _("A room with this name already exists."))
+            return redirect('create-room')
+
+        try:
+            with transaction.atomic():
+                topic, _ = Topic.objects.get_or_create(name=topic_name)
+                room = Room.objects.create(
+                    host=request.user,
+                    topic=topic,
+                    name=room_name,
+                    description=request.POST.get('description')
+                )
+            return redirect('room', pk=room.id)
+        except IntegrityError:
+            messages.error(request, _("An error occurred while creating the room. Please try again."))
+            logger.error(f"Room creation error for user {request.user.id}")
+
+    context = {'form': form, 'topics': topics, 'page': 'create'}
+    return render(request, 'base/create_room.html', context)
+
 @login_required(login_url='login')
-def deleteMessage(request,pk):
-   message=Message.objects.get(id=pk)
-   
+@require_http_methods(["GET", "POST"])
+def update_room(request, pk):
+    room = get_object_or_404(Room, id=pk)
+    form = RoomForm(instance=room)
+    topics = Topic.objects.all()
 
-   if request.user != message.user:
-      return HttpResponse("you are not allowed to delete others message")
+    if request.user != room.host:
+        return HttpResponseForbidden(_("You are not allowed to update this room."))
 
-   if request.method == "POST":
-      message.delete()
-      return redirect('index')
-   return render(request,'base/deleteRoom.html',{'obj':message})
+    if request.method == "POST":
+        topic_name = request.POST.get('topic')
+        room_name = request.POST.get('name')
 
+        is_valid, error_message = validate_name(topic_name)
+        if not is_valid:
+            messages.error(request, f"Invalid topic name: {error_message}")
+            return redirect('update-room', pk=pk)
 
+        is_valid, error_message = validate_name(room_name, check_profanity=False)
+        if not is_valid:
+            messages.error(request, f"Invalid room name: {error_message}")
+            return redirect('update-room', pk=pk)
+
+        try:
+            with transaction.atomic():
+                topic, _ = Topic.objects.get_or_create(name=topic_name)
+                room.name = room_name
+                room.description = request.POST.get('description')
+                room.topic = topic
+                room.save()
+            return redirect('room', pk=room.id)
+        except IntegrityError:
+            messages.error(request, _("An error occurred while updating the room. Please try again."))
+            logger.error(f"Room update error for room {pk} by user {request.user.id}")
+
+    context = {'form': form, 'topics': topics, 'room': room}
+    return render(request, 'base/create_room.html', context)
+
+@login_required(login_url='login')
+@require_http_methods(["GET", "POST"])
+def delete_room(request, pk):
+    room = get_object_or_404(Room, id=pk)
+
+    if request.user != room.host:
+        return HttpResponseForbidden(_("You are not allowed to delete this room."))
+
+    if request.method == "POST":
+        room.delete()
+        return redirect('index')
+
+    return render(request, 'base/deleteRoom.html', {'obj': room})
+
+@login_required(login_url='login')
+@require_http_methods(["GET", "POST"])
+def delete_message(request, pk):
+    message = get_object_or_404(Message, id=pk)
+
+    if request.user != message.user:
+        return HttpResponseForbidden(_("You are not allowed to delete this message."))
+
+    if request.method == "POST":
+        message.delete()
+        return redirect('index')
+
+    return render(request, 'base/deleteRoom.html', {'obj': message})
+
+@require_http_methods(["GET"])
 def back(request):
     previous_page = request.META.get('HTTP_REFERER')
-    if previous_page:
-        return redirect(previous_page)
-    else:
-        # If there is no previous page, redirect to a default URL
-        return redirect('index')   
-    
-   #  creating the view for the login page
-def loginPage(request):
-   page='login'
-   if request.user.is_authenticated:
-      return redirect('index')
-
-   if request.method ==  'POST':
-      username=request.POST.get('username').lower()
-      password=request.POST.get('password')
-
-      try:
-         user=User.objects.get(username=username)
-         user=authenticate(request,username=username,password=password) 
-         if user is not None:
-            login(request,user)
-            return redirect('index')
-         else:
-            messages.error(request,"username and Password  Does not Exist")
-      except:
-         messages.error(request,'User does not exitst')   
-      # user=authenticate(request,username=username,password=password)   
-
-      # if user is not None:
-      #    login(request,user)
-      #    return redirect('index')
-      # else:
-      #    messages.error(request,"username and Password  Does not Exist")
-
-   context={'page':page}
-   return render(request,'base/login_page.html',context)
-
-# creating the view function for the loging out the user
-def logoutUser(request):
-   logout(request)
-   return redirect('index')
-
-
-
-
-# creting the view for the registeration of the usser
-def registerUser(request):
-   form=UserCreationForm()
-   context={'form':form}
-   if request.method =="POST":
-      form=UserCreationForm(request.POST)
-      if form.is_valid():
-         user=form.save(commit=False)
-         user.username=user.username.lower()
-         user.save()
-         login(request,user)
-         return redirect('index')
-      else:
-         messages.error(request,'Ther is some Error Occured while you registering the page.')
-   return render(request,'base/login_page.html',context)
-
-
-
-# creating the view for the userProfile 
-def userProfile(request,pk):
-   user= User.objects.get(id=pk)
-   room= user.room_set.all()
-   room_messages= user.message_set.all()
-   topics=Topic.objects.all()
-   context={'user' : user,'rooms':room,'topics':topics , 'room_messages':room_messages}
-   return render(request,'base/userProfile.html',context)
-
+    return redirect(previous_page) if previous_page else redirect('index')
 
 @login_required(login_url='login')
-def updateUser(request):
-   user=request.user
-   form=userForm(instance=user)
-   context={'form':form}
-   if request.method == 'POST':
-      form=userForm(request.POST,instance=user)
-      if form.is_valid():
-         form.save()
-         return redirect('user-profile', pk=user.id)
-   return render(request,'base/update-user.html',context)
-
-
-
-@login_required(login_url='login')
+@require_http_methods(["GET"])
 def setting(request):
-   return render(request,'base/settings.html')
-
+    return render(request, 'base/settings.html')
 
 @login_required(login_url='login')
-def activityPage(request):
-   q=request.GET.get('q') if request.GET.get('q') != None else ''
-   room_messages=Message.objects.filter(Q(room__topic__name__icontains = q)|
-                                        Q(room__name__icontains = q))
-   context={'room_messages':room_messages}
-   return render(request,'base/activity_mobile.html',context)
+@require_http_methods(["GET"])
+def activity_page(request):
+    q = request.GET.get('q', '')
+    room_messages = Message.objects.filter(
+        Q(room__topic__name__icontains=q) |
+        Q(room__name__icontains=q)
+    ).select_related('user', 'room')
+    return render(request, 'base/activity_mobile.html', {'room_messages': room_messages})
 
-
-def topicPage(request):
-   q=request.GET.get('q') if request.GET.get('q') != None else ''
-   topics=Topic.objects.filter(Q(name__icontains = q))
-   context={'topics':topics}
-   return render(request,'base/topics_mobile.html',context)
+@require_http_methods(["GET"])
+def topic_page(request):
+    q = request.GET.get('q', '')
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request, 'base/topics_mobile.html', {'topics': topics})

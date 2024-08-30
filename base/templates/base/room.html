@@ -4,6 +4,7 @@
 
 <main class="profile-page layout layout--2">
   <div class="container">
+    
     <!-- Room Start -->
     <div class="room">
       <div class="room__top">
@@ -18,9 +19,9 @@
           </a>
           <h3>Study Room</h3>
         </div>
-        {% if request.user == rooms.host %}
+        {% if request.user == room.host %}
         <div class="room__topRight">
-          <a href="{% url 'update-room' rooms.id %}">
+          <a href="{% url 'update-room' room.id %}">
             <svg enable-background="new 0 0 24 24" height="32" viewBox="0 0 24 24" width="32"
               xmlns="http://www.w3.org/2000/svg">
               <title>edit</title>
@@ -39,7 +40,7 @@
               </g>
             </svg>
           </a>
-          <a href="{% url 'delete-room' rooms.id %}">
+          <a href="{% url 'delete-room' room.id %}">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>remove</title>
               <path
@@ -68,16 +69,16 @@
       <div class="room__box scroll">
         <div class="room__header scroll">
           <div class="room__info">
-            <h3>{{rooms.name}}</h3>
-            <span>{{rooms.created|timesince}} ago</span>
+            <h3>{{room.name}}</h3>
+            <span>{{room.created|timesince}} ago</span>
           </div>
           <div class="room__hosted">
             <p>Hosted By</p>
-            <a href="{% url 'user-profile' rooms.host.id %}" class="room__author">
+            <a href="{% url 'user-profile' room.host.id %}" class="room__author">
               <div class="avatar avatar--small">
-                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                <img src={{room.host.avatar_url}} alt ='user-profile'/>
               </div>
-              <span>@{{rooms.host.username}}</span>
+              <span>@{{room.host.username}}</span>
             </a>
           </div>
           <!-- <div class="room__details">
@@ -85,7 +86,10 @@
             rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum
             corporis laboriosam deleniti molestias?
           </div> -->
-          <span class="room__topics">{{rooms.topic.name}}</span>
+          <span class="room__topics">{{room.topic.name}}</span>
+        </div>
+        <div>
+          {% include "message.html" %}
         </div>
         <div class="room__conversation">
           <div class="threads scroll">
@@ -95,9 +99,9 @@
                 <div class="thread__author">
                   <a href="{% url 'user-profile' message.user.id %}" class="thread__authorInfo">
                     <div class="avatar avatar--small">
-                      <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                      <img src={{message.user.avatar_url}} alt ='user-profile'/>
                     </div>
-                    <span>@{{message.user}}</span>
+                    <span>@{{message.user.username}}</span>
                   </a>
                   <span class="thread__date">{{message.created|timesince}}ago</span>
                 </div>
@@ -125,7 +129,8 @@
       <div class="room__message">
         <form action=""  method="POST">
           {% csrf_token %}
-          <input type="text" placeholder="Enter the message here" name="message_body" id="">
+          <input type="text" placeholder="Enter the message here" name="message_body" id="message_body">
+          
         </form>
       </div>
     </div>
@@ -138,7 +143,8 @@
         {% for user in participants %}
         <a href="{% url 'user-profile' user.id %}" class="participant">
           <div class="avatar avatar--medium">
-            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+            <!-- Here Dynamic avatar of each user will come , after they will upload their image -->
+            <img src={{user.avatar_url}} alt ='user-profile'/>
           </div>
           <p>
             {{user.username}}
@@ -148,9 +154,10 @@
         {% endfor %}
       </div>
     </div>
+    <!--  End -->
   </div>
-  <!--  End -->
-  </div>
+ 
+ 
 </main>
 
 {% endblock body %}
