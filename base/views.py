@@ -11,6 +11,26 @@ from .models import Room, Topic, Message, UserProfile, Badge, Event, Notificatio
 from .forms import RoomForm, UserForm
 from django.utils import timezone
 
+
+#Generating Custom Google URL
+from allauth.socialaccount.providers.google.provider import GoogleProvider
+from allauth.socialaccount.models import SocialApp
+from django.urls import reverse
+
+def custom_google_login(request):
+    # Get the Google provider configuration
+    google_provider = GoogleProvider(request)
+    app = SocialApp.objects.get_current(provider='google')
+    
+    # Build the Google OAuth URL directly
+    authorize_url = google_provider.get_oauth_url(request)
+    
+    # Redirect directly to Google's auth page
+    return redirect(authorize_url)
+
+
+
+
 def index(request):
     """
     View for the home page.
@@ -38,7 +58,11 @@ def index(request):
 
     # Personalized room recommendations
     if request.user.is_authenticated:
-        user_profile = UserProfile.objects.get(user=request.user)
+        try:
+            user_profile = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+        # Create profile if it doesn't exist
+            user_profile = UserProfile.objects.create(user=request.user)
         user_interests = user_profile.interests.all()
         recommended_rooms = Room.objects.filter(topic__in=user_interests).exclude(participants=request.user)[:5]
     else:

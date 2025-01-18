@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # My Middleware
+    # Additional  Middleware
     # social_authentication Middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     "allauth.account.middleware.AccountMiddleware",
@@ -106,15 +106,23 @@ DATABASES = {
         'PORT': config("PORT"),
     }
 }
-
+### Setting for Social Authentication
 
 SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
+
+
+
+
+# Social Account Adapter  , this is to act as a bridge among Application and Third party SErvice Provider
+SOCIALACCOUNT_ADAPTER = 'base.adapters.CustomSocialAccountAdapter'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': config('GOOGLE_CLIENT_ID'),
-            'secret':config('GOOGLE_CLIENT_SECRET'),
+            'client_id':config('GOOGLE_CLIENT_ID'),
+            'secret': config('GOOGLE_CLIENT_SECRET'),
             'key': ''
         },
         'SCOPE': [
@@ -125,7 +133,55 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         }
     }
+    # # Facebook
+    # 'google': {
+    #     'APP': {
+    #         'client_id':# config('GOOGLE_CLIENT_ID'),
+    #         'secret':#config('GOOGLE_CLIENT_SECRET'),
+    #         'key': ''
+    #     },
+    #     'SCOPE': [
+    #         'profile',
+    #         'email',
+    #     ],
+    #     'AUTH_PARAMS': {
+    #         'access_type': 'online',
+    #     }
+    # },
+    # # Linkedin 
+    # 'google': {
+    #     'APP': {
+    #         'client_id':# config('GOOGLE_CLIENT_ID'),
+    #         'secret':#config('GOOGLE_CLIENT_SECRET'),
+    #         'key': ''
+    #     },
+    #     'SCOPE': [
+    #         'profile',
+    #         'email',
+    #     ],
+    #     'AUTH_PARAMS': {
+    #         'access_type': 'online',
+    #     }
+    # },
+    # # Github 
+    # 'github': {
+    #     'APP': {
+    #         'client_id': # config('GOOGLE_CLIENT_ID'),
+    #         'secret': #config('GOOGLE_CLIENT_SECRET'),
+    #         'key': ''
+    #     },
+    #     'SCOPE': [
+    #         'profile',
+    #         'email',
+    #     ],
+    #     'AUTH_PARAMS': {
+    #         'access_type': 'online',
+    #     }
+    # }
 }
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -167,6 +223,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS=[BASE_DIR/'static']
+
+# this configuration is for using media Files that will get uploaded by user
+# after this Configuration need to make some changes in urls.py of Pojects file 
+MEDIA_ROOT = BASE_DIR/ 'static/images'
+MEDIA_URL = '/images/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

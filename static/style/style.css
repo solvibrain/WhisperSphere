@@ -43,6 +43,75 @@ html {
   }
 }
 
+/* Social Login Css */
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-button i {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.google {
+  background: #DB4437;
+}
+
+.github {
+  background: #333;
+}
+
+.linkedin {
+  background: #0077B5;
+}
+
+.facebook {
+  background: #1877F2;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #666;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ddd;
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-size: 0.9rem;
+}
+
+/* Social Login Css End */
 body {
   line-height: 1.6;
   font-weight: 400;
