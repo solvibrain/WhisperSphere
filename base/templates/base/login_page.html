@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% block body %}
+{% load socialaccount %}  
   
 <main class="auth layout">
   {% if page == 'login' %}
@@ -51,6 +52,31 @@
                 Login
               </button>
             </form>
+
+            <div class="divider">
+              <span>or</span>
+            </div>
+
+            <div class=" social-buttons">
+              <a href="{% provider_login_url 'google'  %}">
+                <button class="btn btn--main social-button google">
+                  <i class="fab fa-google"></i>
+                  Login with Google
+                </button>
+              </a>
+              <button class="btn btn--main social-button github">
+                  <i class="fab fa-github"></i>
+                  Login with GitHub
+              </button>
+              <button class="btn btn--main social-button linkedin">
+                  <i class="fab fa-linkedin"></i>
+                  Login with LinkedIn
+              </button>
+              <button class="btn btn--main  social-button facebook">
+                  <i class="fab fa-facebook"></i>
+                  Login with Facebook
+              </button>
+            </div>
             
             <div class="auth__action">
               <p>Haven't signed up yet?</p>

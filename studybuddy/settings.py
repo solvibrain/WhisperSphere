@@ -110,6 +110,8 @@ DATABASES = {
 
 # this Configuration is for Social authentication 
 SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
