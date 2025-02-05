@@ -5,6 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 import uuid
 from django.conf import settings
+# This is for handling fallback when calling for avatar url
+from django.conf import settings
+import os
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -65,10 +68,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def avatar_url(self):
         if self.avatar and hasattr(self.avatar, 'url'):
-            return self.avatar.url
-        else:
-            # Return the URL of the default avatar
-            return f"{settings.STATIC_URL}images/assets/avatar.svg"
+            try:
+                # Check if file exists
+                if os.path.exists(self.avatar.path):
+                    return self.avatar.url
+            except ValueError:
+                # Handle case where file path is invalid
+                pass
+        
+        # Return default avatar path
+        default_path = os.path.join(settings.STATIC_URL, 'images/assets/avatar.svg')
+        # Make sure the default image exists
+        static_file_path = os.path.join(settings.STATIC_ROOT, 'images/assets/avatar.svg')
+        if os.path.exists(static_file_path):
+            return default_path
+        
+        # If all else fails, return a URL to a public placeholder service
+        return "https://ui-avatars.com/api/?name=User&background=random"
 class Topic(models.Model):
     name = models.CharField(max_length=200)
 
