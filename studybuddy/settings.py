@@ -108,9 +108,32 @@ DATABASES = {
 #     }
 # }
 
+
+
+
+
+# Changes regarding to Social Authentication
 # this Configuration is for Social authentication 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+
+#Settings to remove INtermediate Pages from Authentication that is provided by django allauth
+# settings.py
+
+# Skip intermediate pages
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# Auto signup after successful authentication
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+# Disable email verification
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Don't prompt for email
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+
+# Don't ask for username
+SOCIALACCOUNT_USERNAME_REQUIRED = False
 
 
 SOCIALACCOUNT_PROVIDERS = {
