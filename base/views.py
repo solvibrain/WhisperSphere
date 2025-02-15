@@ -12,7 +12,8 @@ from django.utils.translation import gettext_lazy as _
 from .models import Room, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreationForm
 from .utils import validate_name
-
+# dependency that is getting use for Google login
+from allauth.socialaccount.providers.google.views import oauth2_login
 import logging
 
 logger = logging.getLogger(__name__)
@@ -70,6 +71,15 @@ def login_page(request):
             messages.error(request, _("An error occurred. Please try again."))
 
     return render(request, 'base/login_page.html', {'page': 'login'})
+
+
+@require_http_methods(["GET", "POST"])
+def custom_google_login(request):
+    # Set next URL in session if provided
+    next_url = request.GET.get('next', '/')
+    request.session['next'] = next_url
+    return oauth2_login(request)
+
 
 @login_required(login_url='login')
 def logout_user(request):
@@ -189,7 +199,7 @@ def create_room(request):
 
         try:
             with transaction.atomic():
-                topic, _ = Topic.objects.get_or_create(name=topic_name)
+                topic, created = Topic.objects.get_or_create(name=topic_name)
                 room = Room.objects.create(
                     host=request.user,
                     topic=topic,
@@ -230,7 +240,7 @@ def update_room(request, pk):
 
         try:
             with transaction.atomic():
-                topic, _ = Topic.objects.get_or_create(name=topic_name)
+                topic,created = Topic.objects.get_or_create(name=topic_name)
                 room.name = room_name
                 room.description = request.POST.get('description')
                 room.topic = topic

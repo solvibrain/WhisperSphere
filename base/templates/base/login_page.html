@@ -58,7 +58,7 @@
             </div>
 
             <div class=" social-buttons">
-              <a href="{% provider_login_url 'google'  %}">
+              <a href="{% url 'google_login' %}?next=/">
                 <button class="btn btn--main social-button google">
                   <i class="fab fa-google"></i>
                   Login with Google
@@ -68,14 +68,14 @@
                   <i class="fab fa-github"></i>
                   Login with GitHub
               </button>
-              <button class="btn btn--main social-button linkedin">
+              {% comment %} <button class="btn btn--main social-button linkedin">
                   <i class="fab fa-linkedin"></i>
                   Login with LinkedIn
               </button>
               <button class="btn btn--main  social-button facebook">
                   <i class="fab fa-facebook"></i>
                   Login with Facebook
-              </button>
+              </button> {% endcomment %}
             </div>
             
             <div class="auth__action">

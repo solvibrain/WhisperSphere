@@ -6,6 +6,9 @@ urlpatterns = [
     path('login/',views.login_page,name="login"),
     path('logout/',views.logout_user,name="logout"),
     path('register/',views.register_user,name="register"),
+
+    # Social login Urls
+    path('google/login/', views.custom_google_login, name='google_login'),
    
     path('room/<str:pk>/',views.room, name="room"),
     path('user-profile/<str:pk>/', views.user_profile , name="user-profile"),

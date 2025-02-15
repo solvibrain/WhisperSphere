@@ -25,7 +25,8 @@ SECRET_KEY = config('DJANGO_SECRET_KEY',cast = str) # keepig this Secret , for P
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 
 
 # Application definition
@@ -59,7 +60,8 @@ MIDDLEWARE = [
     # My Middleware
     # social_authentication Middleware
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
+    'base.middleware.DebugMiddleware',
 
 ]
 
@@ -124,7 +126,7 @@ LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # Auto signup after successful authentication
-SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_AUTO_SIGNUP = False
 
 # Disable email verification
 ACCOUNT_EMAIL_VERIFICATION = 'none'
@@ -134,7 +136,23 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 
 # Don't ask for username
 SOCIALACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+# Automatically connect new social accounts to existing users with matching email
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+SOCIALACCOUNT_FORMS = {}
 
+# ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+# ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+# ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+SOCIALACCOUNT_STORE_TOKENS = True
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -149,9 +167,43 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
-    }
+        },
+        'FIELDS': [
+            'id',
+            'email',
+            'given_name',
+            'family_name',
+            'picture',
+            'locale',
+        ],
+        'VERIFIED_EMAIL': True,
+    },
+
+    # 'github': {
+    #     'APP': {
+    #         'client_id': config('GITHUB_CLIENT_ID'),
+    #         'secret': config('GITHUB_CLIENT_SECRET'),
+    #         'key': ''
+    #     },
+    #     'SCOPE': [
+    #         'user',
+    #         'email',
+    #     ],
+    # },
 }
+
+
+SOCIALACCOUNT_ADAPTER = 'base.adapters.CustomSocialAccountAdapter'
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+
+
+# # Security Settings
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# X_FRAME_OPTIONS = 'DENY'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
