@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
+INSTALLED_APPS += ['channels']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,7 +86,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'studybuddy.wsgi.application'
+# Asynchronous settings for Websocket 
+ASGI_APPLICATION = 'studybuddy.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
