@@ -5,9 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 import uuid
 from django.conf import settings
-# This is for handling fallback when calling for avatar url
-from django.conf import settings
 import os
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -19,7 +18,6 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
@@ -41,9 +39,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True)
     language = models.CharField(_('language'), max_length=10, blank=True)
-    
     bio = models.TextField(_('bio'), blank=True)
     avatar = models.ImageField(_('avatar'), upload_to='avatars/', null=True, blank=True)
+    typing_status = models.BooleanField(default=False)
+    last_seen = models.DateTimeField(auto_now=True)
 
     objects = CustomUserManager()
 
@@ -71,33 +70,30 @@ class User(AbstractBaseUser, PermissionsMixin):
     def avatar_url(self):
         if self.avatar and hasattr(self.avatar, 'url'):
             try:
-                # Check if file exists
                 if os.path.exists(self.avatar.path):
                     return self.avatar.url
             except ValueError:
-                # Handle case where file path is invalid
                 pass
         
-        # Return default avatar path
         default_path = os.path.join(settings.STATIC_URL, 'images/assets/avatar.svg')
-        # Make sure the default image exists
         static_file_path = os.path.join(settings.STATIC_ROOT, 'images/assets/avatar.svg')
         if os.path.exists(static_file_path):
             return default_path
         
-        # If all else fails, return a URL to a public placeholder service
         return "https://ui-avatars.com/api/?name=User&background=random"
+
 class Topic(models.Model):
     name = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 class Room(models.Model):
-    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,related_name ='rooms')
-    topic = models.ForeignKey('Topic', on_delete=models.SET_NULL, null=True, related_name ='room_topic')
+    host = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='rooms')
+    topic = models.ForeignKey('Topic', on_delete=models.SET_NULL, null=True, related_name='room_topic')
     name = models.CharField(max_length=200)
-    description = models.TextField(null =True,blank=True)
+    description = models.TextField(blank=True)
     participants = models.ManyToManyField(User, related_name='participants', blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -109,11 +105,12 @@ class Room(models.Model):
         return self.name
 
 class Message(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE ,related_name ='messages')
-    room = models.ForeignKey(Room, on_delete=models.CASCADE,related_name ='room_messages')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_messages')
     body = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-updated', '-created']

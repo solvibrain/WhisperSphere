@@ -92,9 +92,9 @@
           {% include "message.html" %}
         </div>
         <div class="room__conversation">
-          <div class="threads scroll">
+          <div class="threads scroll" id="message-container">
             {% for message in room_messages %}
-            <div class="thread">
+            <div class="thread" id="message-{{message.id}}">
               <div class="thread__top">
                 <div class="thread__author">
                   <a href="{% url 'user-profile' message.user.id %}" class="thread__authorInfo">
@@ -103,7 +103,7 @@
                     </div>
                     <span>@{{message.user.username}}</span>
                   </a>
-                  <span class="thread__date">{{message.created|timesince}}ago</span>
+                  <span class="thread__date">{{ message.created|timesince }} ago</span>
                 </div>
                 {% if request.user == message.user %}
                 <div class="thread__delete">
@@ -129,7 +129,7 @@
       <div class="room__message">
         <form action=""  method="POST">
           {% csrf_token %}
-          <input type="text" placeholder="Enter the message here" name="message_body" id="message_body">
+          <input type="text" class="form--input" placeholder="Enter the message here" name="message" id="chat-message-input">
           
         </form>
       </div>
@@ -159,5 +159,92 @@
  
  
 </main>
+
+<script>
+  const roomId = "{{ room.id }}";
+  const userId = "{{ request.user.id }}";
+  const username = "{{ request.user.username }}";
+  
+  // Use secure WebSocket if the page is served over HTTPS
+  const wsScheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+  const chatSocket = new WebSocket(
+      `${wsScheme}://${window.location.host}/ws/chat/${roomId}/`
+  );
+
+  const messageContainer = document.querySelector('.threads.scroll');
+  const chatForm = document.getElementById('chat-form');
+  const messageInput = document.getElementById('chat-message-input');
+
+  chatSocket.onopen = function(e) {
+      console.log('WebSocket connected');
+  };
+
+  chatSocket.onclose = function(e) {
+      console.error('WebSocket disconnected');
+  };
+
+  chatSocket.onerror = function(e) {
+      console.error('WebSocket error:', e);
+  };
+
+  chatSocket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+      console.log('Received message:', data);
+
+      const messageHtml = `
+          <div class="thread">
+              <div class="thread__top">
+                  <div class="thread__author">
+                      <a href="/profile/${data.user_id}" class="thread__authorInfo">
+                          <div class="avatar avatar--small">
+                              <img src="${data.avatar_url}" alt="user-profile"/>
+                          </div>
+                          <span>@${data.username}</span>
+                      </a>
+                      <span class="thread__date">just now</span>
+                  </div>
+                  ${data.user_id === userId ? 
+                      `<div class="thread__delete">
+                          <a href="/delete-message/${data.message_id}">
+                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                  <title>remove</title>
+                                  <path d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"></path>
+                              </svg>
+                          </a>
+                      </div>` 
+                      : ''}
+              </div>
+              <div class="thread__details">
+                  ${data.message}
+              </div>
+          </div>
+      `;
+      
+      messageContainer.insertAdjacentHTML('beforeend', messageHtml);
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+  };
+
+  chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const message = messageInput.value.trim();
+      
+      if (message) {
+          chatSocket.send(JSON.stringify({
+              'message': message
+          }));
+          messageInput.value = '';
+      }
+  });
+
+  messageInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+          e.preventDefault();
+          chatForm.dispatchEvent(new Event('submit'));
+      }
+  });
+
+  // Scroll to bottom on load
+  messageContainer.scrollTop = messageContainer.scrollHeight;
+</script>
 
 {% endblock body %}

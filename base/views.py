@@ -7,7 +7,7 @@ from django.db import transaction, IntegrityError
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_http_methods
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as gettext
 
 from .models import Room, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreationForm
@@ -63,12 +63,12 @@ def login_page(request):
                 login(request, user,backend= auth_backend)
                 return redirect('index')
             else:
-                messages.error(request, _("Invalid email or password"))
+                messages.error(request, gettext("Invalid email or password"))
         except User.DoesNotExist:
-            messages.error(request, _("User does not exist"))
+            messages.error(request, gettext("User does not exist"))
         except Exception as e:
             logger.error(f"Login error: {str(e)}")
-            messages.error(request, _("An error occurred. Please try again."))
+            messages.error(request, gettext("An error occurred. Please try again."))
 
     return render(request, 'base/login_page.html', {'page': 'login'})
 
@@ -103,7 +103,7 @@ def register_user(request):
                 return redirect('index')
             except Exception as e:
                 logger.error(f"User registration error: {str(e)}")
-                messages.error(request, _("An error occurred during registration. Please try again."))
+                messages.error(request, gettext("An error occurred during registration. Please try again."))
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -159,7 +159,7 @@ def room(request, pk):
             Message.objects.create(
                 user=request.user,
                 room=room,
-                body=request.POST.get('message_body')
+                body=request.POST.get('message')
             )
             room.participants.add(request.user)
             return redirect('room', pk=room.id)
@@ -169,7 +169,8 @@ def room(request, pk):
     context = {
         'room': room,
         'room_messages': room_messages,
-        'participants': participants
+        'participants': participants,
+        'room_id': pk  
     }
     return render(request, 'base/room.html', context)
 
@@ -194,12 +195,13 @@ def create_room(request):
             return redirect('create-room')
 
         if Room.objects.filter(name=room_name).exists():
-            messages.error(request, _("A room with this name already exists."))
+            messages.error(request, gettext("A room with this name already exists."))
             return redirect('create-room')
 
         try:
             with transaction.atomic():
-                topic, created = Topic.objects.get_or_create(name=topic_name)
+                
+                topic, _ = Topic.objects.get_or_create(name=topic_name)
                 room = Room.objects.create(
                     host=request.user,
                     topic=topic,
@@ -207,9 +209,9 @@ def create_room(request):
                     description=request.POST.get('description')
                 )
             return redirect('room', pk=room.id)
-        except IntegrityError:
-            messages.error(request, _("An error occurred while creating the room. Please try again."))
-            logger.error(f"Room creation error for user {request.user.id}")
+        except IntegrityError as e :
+            messages.error(request, gettext("An error occurred while creating the room. Please try again."))
+            logger.error(f"Room creation error for user {request.user.id}:{str(e)}")
 
     context = {'form': form, 'topics': topics, 'page': 'create'}
     return render(request, 'base/create_room.html', context)
@@ -222,7 +224,7 @@ def update_room(request, pk):
     topics = Topic.objects.all()
 
     if request.user != room.host:
-        return HttpResponseForbidden(_("You are not allowed to update this room."))
+        return HttpResponseForbidden(gettext("You are not allowed to update this room."))
 
     if request.method == "POST":
         topic_name = request.POST.get('topic')
@@ -239,15 +241,23 @@ def update_room(request, pk):
             return redirect('update-room', pk=pk)
 
         try:
+            from django.db import connection
+            cursor = connection.cursor()
+            cursor.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name='base_topic';")
+            print(cursor.fetchone()[0])
             with transaction.atomic():
-                topic,created = Topic.objects.get_or_create(name=topic_name)
+                try:
+                    topic = Topic.objects.get(name=topic_name)
+                except Topic.DoesNotExist:
+                    # If topic doesn't exist, create a new one
+                    topic = Topic.objects.create(name=topic_name)
                 room.name = room_name
                 room.description = request.POST.get('description')
                 room.topic = topic
                 room.save()
             return redirect('room', pk=room.id)
         except IntegrityError:
-            messages.error(request, _("An error occurred while updating the room. Please try again."))
+            messages.error(request, gettext("An error occurred while updating the room. Please try again."))
             logger.error(f"Room update error for room {pk} by user {request.user.id}")
 
     context = {'form': form, 'topics': topics, 'room': room}
@@ -259,7 +269,7 @@ def delete_room(request, pk):
     room = get_object_or_404(Room, id=pk)
 
     if request.user != room.host:
-        return HttpResponseForbidden(_("You are not allowed to delete this room."))
+        return HttpResponseForbidden(gettext("You are not allowed to delete this room."))
 
     if request.method == "POST":
         room.delete()
@@ -273,7 +283,7 @@ def delete_message(request, pk):
     message = get_object_or_404(Message, id=pk)
 
     if request.user != message.user:
-        return HttpResponseForbidden(_("You are not allowed to delete this message."))
+        return HttpResponseForbidden(gettext("You are not allowed to delete this message."))
 
     if request.method == "POST":
         message.delete()

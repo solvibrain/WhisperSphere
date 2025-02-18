@@ -67,7 +67,7 @@ MIDDLEWARE = [
 
 ]
 
-ROOT_URLCONF = 'studybuddy.urls'
+ROOT_URLCONF = 'whispersphere.urls'
 
 TEMPLATES = [
     {
@@ -85,18 +85,16 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'studybuddy.wsgi.application'
+WSGI_APPLICATION = 'whispersphere.wsgi.application'
 # Asynchronous settings for Websocket 
-ASGI_APPLICATION = 'studybuddy.asgi.application'
+ASGI_APPLICATION = 'whispersphere.asgi.application'
 
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
